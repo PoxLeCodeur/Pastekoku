@@ -1,6 +1,6 @@
 # Pastekoku
 
-L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fruits à la place des bombes, et que chaque fruit a des caractéristiques différentes (surtout des pastèques).
+L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fruits à la place des bombes (surtout des pastèques), et que chaque fruit a des caractéristiques différentes.
 
 **La base :**
 
