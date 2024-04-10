@@ -39,3 +39,4 @@ app.use((err, req, res, next) => {
 });
 
 app.use(express.static("public"));
+app.use("/laboumba", laboumbaRouter);
