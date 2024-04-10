@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
+const bombRouter = require("./routes/bomb.js");
 
 const corsOptions = {
   origin: "*",
@@ -16,17 +17,6 @@ app.use(
   })
 );
 
-app.listen(port, () => {
-  console.log(`Application launched on http://localhost:${port}`);
-});
-
-var server = app.listen(8081, function () {
-  let host = server.address().address;
-  let port = server.address().port;
-
-  console.log(`Server runing at http://${host}${port}`);
-});
-
 app.get("/", function (req, res) {
   res.send("Hello Wolrd");
 });
@@ -39,3 +29,16 @@ app.use((err, req, res, next) => {
 });
 
 app.use(express.static("public"));
+
+app.use("/bomb", bombRouter);
+
+app.listen(port, () => {
+  console.log(`Application launched on http://localhost:${port}`);
+});
+
+var server = app.listen(8081, function () {
+  let host = server.address().address;
+  let port = server.address().port;
+
+  console.log(`Server runing at http://${host}${port}`);
+});
