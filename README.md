@@ -39,7 +39,9 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 - Voili voilou😸.
 
 **Guide de jeu :**
-- Il s'agit d'un **Bomberman** classique💣 mais avec des fruits🍉 réalisé principalement à l'aide de l'outil **Kaboom!💥**. La raison principale de ce choix est que, je cite, "*En vrai un Bomberman avec Kaboom c'est rigolo*🧠🧠🧠" nonobstant son manque de versatilité et de personnalisation qui nous ont posé de nombreux problèmes lors de la réalisation de ce projet. (La vraie raison de ce choix est la facilité d'animation des personnages, la gestion de la map et des déplacements et la possibilité d'utiliser des png, notre graphiste ayant une haine viscérale des vecteurs).
+- Il s'agit d'un **Bomberman** classique💣 mais avec des fruits🍉 réalisé principalement à l'aide de l'outil **Kaboom!💥**.
+  - La raison principale de ce choix est que, je cite, "*En vrai un Bomberman avec Kaboom c'est rigolo*🧠🧠🧠" nonobstant son manque de versatilité et de personnalisation qui nous ont posé de nombreux problèmes lors de la réalisation de ce projet.
+  - (La vraie raison de ce choix est la facilité d'animation des personnages, la gestion de la map et des déplacements et la possibilité d'utiliser des png, notre graphiste ayant une haine viscérale des vecteurs).
 - Vous incarnez un petit golem qui a pour seul but de fruiter ses petits camarades😇.
   - Vous pouvez poser des **fruits explosifs** tah les choux péteurs en appuyant sur la **barre espace**.
   - Il existe différents types de fruits avec différents effets que vous découvrirez au fur et à mesure des parties !
