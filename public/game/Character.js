@@ -83,6 +83,28 @@ player.onCollide("wall", (obstacle) => {
   destroy(obstacle);
 });
 
+function placeBomb() {
+  let placed = false;
+  return {
+    id: "place",
+    update() {
+      if (placed) {
+        let bomb = add([
+          sprite("wall"),
+          pos(10, 10),
+          anchor("center"),
+          area(),
+          body({ isStatic: true }),
+          "obstacle",
+        ]);
+      }
+      placed = true;
+    },
+  };
+}
+
+onKeyPress("space", placeBomb);
+
 function stopPlayer() {
   if (
     !isKeyDown("left") &&
