@@ -91,31 +91,9 @@ function movePlayer(direction) {
   }
 }
 
-player.onCollide("wall", (wall) => {
-  destroy(wall);
+onKeyPress("space", () => {
+  add([sprite("wall"), pos(player.pos), rotate(0), anchor("center")]);
 });
-function placeBomb() {
-  let placed = false;
-  return {
-    id: "place",
-    update() {
-      if (placed) {
-        let bomb = add([
-          sprite("briquasse"),
-          pos(player.pos),
-          anchor("center"),
-          area(),
-          body({ mass: 10 }),
-        ]);
-      }
-    },
-    placeBomb() {
-      placed = true;
-    },
-  };
-}
-
-onKeyDown("space", player.placeBomb);
 
 function stopPlayer() {
   if (
