@@ -1,5 +1,5 @@
-function getOffset(currentpage = 1, listPerPage) {
-  return (currentpage - 1) * [listPerPage];
+function getOffset(currentPage = 1, listPerPage) {
+  return (currentPage - 1) * [listPerPage];
 }
 
 function emptyOrRows(rows) {

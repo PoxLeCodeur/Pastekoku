@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
-const laboumbaRouter = require("./routes/laboumba.js");
+
+const bombRouter = require("./routes/bomb.js");
 
 const corsOptions = {
   origin: "*",
@@ -11,7 +12,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(
   express.urlencoded({
     extended: true,
@@ -19,14 +19,8 @@ app.use(
 );
 
 app.get("/", function (req, res) {
-  res.send("Hello World");
+  res.send("faut rajouter /game gros bêta");
 });
-
-app.get("/db", (res, req) => {
-  res.json({ message: "ok" });
-});
-
-app.use("/laboumba", laboumbaRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -35,13 +29,15 @@ app.use((err, req, res, next) => {
   return;
 });
 
+app.use(express.static("public"));
+
+app.use("/bomb", bombRouter);
+
 app.listen(port, () => {
   console.log(`Application launched on http://localhost:${port}`);
 });
 
-app.use(express.static("public"));
-
-let server = app.listen(8081, function () {
+var server = app.listen(8081, function () {
   let host = server.address().address;
   let port = server.address().port;
 
