@@ -79,8 +79,8 @@ function movePlayer(direction) {
   }
 }
 
-player.onCollide("wall", (obstacle) => {
-  destroy(obstacle);
+onKeyPress("space", () => {
+  add([sprite("wall"), pos(player.pos), rotate(0), anchor("center")]);
 });
 
 function stopPlayer() {
