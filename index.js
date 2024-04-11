@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = 3000;
-const bombRouter = require("./routes/bombs.js");
+
+const bombRouter = require("./routes/bomb.js");
 
 const corsOptions = {
   origin: "*",
@@ -30,7 +31,7 @@ app.use((err, req, res, next) => {
 
 app.use(express.static("public"));
 
-app.use("/bombs", bombRouter);
+app.use("/bomb", bombRouter);
 
 app.listen(port, () => {
   console.log(`Application launched on http://localhost:${port}`);
