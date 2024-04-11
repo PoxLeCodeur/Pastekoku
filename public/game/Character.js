@@ -30,6 +30,18 @@ loadSprite("wall", "Block2.png", {
     },
   },
 });
+loadSprite("briquasse", "Wall.png", {
+  sliceX: 1,
+  sliceY: 1,
+  anims: {
+    idle: {
+      from: 0,
+      to: 2,
+      speed: 8,
+      loop: true,
+    },
+  },
+});
 const SPEED = 300;
 
 setGravity(0); // Désactiver la gravité pour la vue de dessus
@@ -79,10 +91,9 @@ function movePlayer(direction) {
   }
 }
 
-player.onCollide("wall", (obstacle) => {
-  destroy(obstacle);
+player.onCollide("wall", (wall) => {
+  destroy(wall);
 });
-
 function placeBomb() {
   let placed = false;
   return {
@@ -90,7 +101,7 @@ function placeBomb() {
     update() {
       if (placed) {
         let bomb = add([
-          sprite("wall"),
+          sprite("briquasse"),
           pos(player.pos),
           anchor("center"),
           area(),
