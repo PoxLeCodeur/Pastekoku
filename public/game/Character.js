@@ -40,6 +40,7 @@ const player = add([
   anchor("center"),
   area(),
   body(),
+  placeBomb(),
 ]);
 
 const wall = add([
@@ -48,7 +49,6 @@ const wall = add([
   anchor("center"),
   area(),
   body({ isStatic: true }),
-  "obstacle",
 ]);
 
 player.play("idle");
@@ -91,19 +91,20 @@ function placeBomb() {
       if (placed) {
         let bomb = add([
           sprite("wall"),
-          pos(10, 10),
+          pos(player.pos),
           anchor("center"),
           area(),
-          body({ isStatic: true }),
-          "obstacle",
+          body({ mass: 10 }),
         ]);
       }
+    },
+    placeBomb() {
       placed = true;
     },
   };
 }
 
-onKeyPress("space", placeBomb);
+onKeyDown("space", player.placeBomb);
 
 function stopPlayer() {
   if (
