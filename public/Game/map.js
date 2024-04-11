@@ -1,7 +1,8 @@
 import kaboom from "./node_modules/kaboom/dist/kaboom.mjs";
 
 kaboom({
-  background: [0, 0, 0],
+  background: [230, 221, 197],
+  scale: 1,
 });
 
 loadSprite("bricks", "./assets/bricks.png", {
@@ -25,22 +26,13 @@ loadSprite("golem", "golem.png", {
 });
 
 scene("main", (levelIdx) => {
-  var obstacle_block = "=";
-  var wood_block = "x";
-  var brick_block = "o";
 
   const SPEED = 300;
-
-  const characters = {
-    "@": {
-      sprite: "player",
-    },
-  };
 
   const levels = [
     [
       "===============",
-      "=@ xxx  xx x  =",
+      "=  xxx  xx x  =",
       "= =x=x=x=x=x= =",
       "= xxoox xoxxx =",
       "=x=x= =x=x=x=x=",
@@ -60,28 +52,34 @@ scene("main", (levelIdx) => {
     tileHeight: 50,
     pos: vec2(50, 50),
     tiles: {
-      obstacle_block: () => [
+      "=": () => [
         sprite("obstacle"),
         area(),
         body({ isStatic: true }),
         anchor("center"),
         "obstacle",
       ],
-      wood_block: () => [
+      "x": () => [
         sprite("wood"),
         area(),
         body({ isStatic: true }),
         anchor("center"),
         "wood",
       ],
-      brick_block: () => [
+      "o": () => [
         sprite("bricks"),
         area(),
         body({ isStatic: true }),
         anchor("center"),
         "bricks",
       ],
-      "@": () => [sprite("golem"), area(), body(), anchor("center"), "player"],
+      "@": () => [
+        sprite("golem"),
+        area(),
+        body(),
+        anchor("center"),
+        "player",
+      ],
     },
   });
 
