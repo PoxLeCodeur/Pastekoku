@@ -10,9 +10,13 @@ let connect = mysql.createConnection({
 
 connect.connect(function (err) {
   if (err) throw err;
-  console.log("Connected!");
-  con.query("CREATE DATABASE IF NOT EXISTS bomberman", function (err, result) {
-    if (err) throw err;
-    console.log("Database created");
-  });
+  
+  console.log("Successfully connect to the database");
+  connect.query(
+    "CREATE DATABASE IF NOT EXISTS bomberman",
+    function (err, result) {
+      if (err) throw err;
+      console.log("Database successfully created");
+    }
+  );
 });
