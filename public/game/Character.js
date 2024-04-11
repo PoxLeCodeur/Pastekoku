@@ -1,13 +1,14 @@
 import kaboom from "./node-modules/kaboom/dist/kaboom.mjs";
 
 const k = kaboom({
+  background: [152, 251, 152],
   scale: 4,
   font: "monospace",
 });
 loadRoot(`assets/`);
-loadSprite("dino", "bomberman.png", {
+loadSprite("dino", "all_sprites.png", {
   sliceX: 10,
-  sliceY: 1,
+  sliceY: 2,
   anims: {
     idle: {
       from: 0,
@@ -15,24 +16,49 @@ loadSprite("dino", "bomberman.png", {
       speed: 8,
       loop: true,
     },
-  },
-});
-
-loadSprite("wall", "Block2.png", {
-  sliceX: 3,
-  sliceY: 1,
-  anims: {
-    idle: {
-      from: 0,
-      to: 2,
+    run: {
+      from: 11,
+      to: 13,
       speed: 8,
       loop: true,
     },
   },
 });
-const SPEED = 300;
+loadSprite("wall", "Wall.png", {
+  sliceX: 1,
+  sliceY: 1,
+});
+loadSprite("briquasse", "Wall.png", {
+  sliceX: 1,
+  sliceY: 1,
+});
+loadSprite("apple", "Explosion_Apple.png", {
+  sliceX: 6,
+  sliceY: 1,
+  anims: {
+    idle: {
+      from: 0,
+      to: 5,
+      speed: 4,
+      loop: true,
+    },
+  },
+});
+loadSprite("mapApple", "Map_Apple.png", {
+  sliceX: 8,
+  sliceY: 1,
+  anims: {
+    idle: {
+      from: 0,
+      to: 7,
+      speed: 4,
+      loop: true,
+    },
+  },
+});
 
-setGravity(0); // Désactiver la gravité pour la vue de dessus
+const SPEED = 300;
+setGravity(0);
 
 const player = add([
   sprite("dino"),
@@ -41,26 +67,47 @@ const player = add([
   area(),
   body(),
 ]);
-
+player.play("idle");
 const wall = add([
   sprite("wall"),
   pos(center()),
   anchor("center"),
   area(),
   body({ isStatic: true }),
-  "obstacle",
 ]);
+const mapApple = add([
+  sprite("mapApple"),
+  pos(100, 200),
+  anchor("center"),
+  area(),
+  body(),
+  "mapApple",
+]);
+mapApple.play("idle");
 
-player.play("idle");
+player.onCollide("mapApple", (mapApple) => {
+  destroy(mapApple);
+});
+
+var apple = add([sprite("apple"), pos(player.pos), anchor("center")]);
+apple.play("idle");
+
+onKeyPress("space", () => {
+  add([sprite("apple"), pos(player.pos), anchor("center")]);
+  addKaboom(player.pos);
+});
 
 onKeyDown((key) => {
   movePlayer(key);
+  player.play("run");
 });
+if (!isKeyDown("left") && !isKeyDown("right")) {
+  player.play("idle");
+} else {
+  player.play("run");
+}
 
 function movePlayer(direction) {
-  // if (player.curAnim() !== "run") {
-  //   player.play("run");
-  // }
   switch (direction) {
     case "left":
       player.move(-SPEED, 0);
@@ -78,10 +125,6 @@ function movePlayer(direction) {
       break;
   }
 }
-
-player.onCollide("wall", (obstacle) => {
-  destroy(obstacle);
-});
 
 function stopPlayer() {
   if (

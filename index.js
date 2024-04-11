@@ -19,7 +19,7 @@ app.use(
 );
 
 app.get("/", function (req, res) {
-  res.send("Hello Wolrd");
+  res.send("faut rajouter /game gros bêta");
 });
 
 app.use((err, req, res, next) => {
