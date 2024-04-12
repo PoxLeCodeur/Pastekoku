@@ -19,7 +19,7 @@ app.use(
 );
 
 app.get("/", function (req, res) {
-  res.send("faut rajouter /game gros bêta");
+  res.send("faut rajouter /game dans l'url (localhost:3000/game/)");
 });
 
 app.use((err, req, res, next) => {
