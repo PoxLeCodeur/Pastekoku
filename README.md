@@ -6,7 +6,7 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 
 - Des personnages qui peuvent se déplacer (haut, bas, gauche, droite), poser des bombes et mourir.☑️
 
-- Une map avec des murs destructibles, et des murs indestrutibles.☑️
+- Une map avec des murs destructibles, et des murs indestructibles.☑️
 
 - Des bombes avec un rayon d’explosion qui peut tuer les joueurs (et une pastèque)
 
@@ -33,7 +33,7 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 - Lancer un nouveau terminal à l'aide du raccourcis clavier *ctrl + shift + `* (ou allez dans *Terminal*, *Nouveau Terminal*).
 - Entrez la commande **git clone https://github.com/PoxLeCodeur/Pastekoku.git**.
 - Vous avez désormais un dossier appelé Pastekoku sur votre PC que vous pouvez ouvrir en allant dans "*Fichier*" puis "*Ouvrir le Dossier*" (vous pouvez voir où le dossier a été installé dans la réponse du terminal après le git clone).
-- Une fois fait, retournez sur le terminal et entrez la commande "**npm i**" pour intaller les bibliothèques Node requises.
+- Une fois fait, retournez sur le terminal et entrez la commande "**npm i**" pour installer les bibliothèques Node requises.
 - Récupérez depuis le Drive le fichier **config.json** et mettez le dans la racine.
   - Si le Drive n'est pas encore disponible, créez-le directement à la racine, et écrivez :
      <code> 
