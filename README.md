@@ -35,8 +35,9 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 - Vous avez désormais un dossier appelé Pastekoku sur votre PC que vous pouvez ouvrir en allant dans "*Fichier*" puis "*Ouvrir le Dossier*" (vous pouvez voir où le dossier a été installé dans la réponse du terminal après le git clone).
 - Une fois fait, retournez sur le terminal et entrez la commande "**npm i**" pour intaller les bibliothèques Node requises.
 - Récupérez depuis le Drive le fichier **config.json** et mettez le dans la racine.
-  - Si le Drive n'est pas encore disponible, créez le directement à la racine, et écrivez :
-     <code>{
+  - Si le Drive n'est pas encore disponible, créez-le directement à la racine, et écrivez :
+     <code> 
+{
   "dbConfig": {
     "host": "localhost",
     "user": "root",
@@ -47,7 +48,7 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
   "listPerPage": 10
 }</code>
 - Tout en restant dans le terminal, faites "**node index.js**" puis **ctrl cliquez** sur **http://localhost:3000** (Par défaut 3000, différent si vous l'avez changé). Une page avec le jeu devrait normalement s'ouvrir sur votre navigateur.
-- Vous devrez peut-être rajouter un "**/game/**" à la fin de l'url pour avoir accès au jeu.
+- Vous devrez peut-être rajouter un "**/pastekoku/**" à la fin de l'url pour avoir accès au jeu.
 - Voili voilou😸.
 
 **Guide de jeu :**
@@ -63,4 +64,4 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 **Contenu actuel du jeu :**
 - Petit golem qui pose des fruits(lesquels n'explosent pas pour le moment).
 - Une pomme ramassable qui à l'avenir donnera un bonus.
-- Une map mais qui ne fonctionne pour le moment pas avec les autres entités.
+- Une map mais dont les murs ne sont pas encore destructibles.
