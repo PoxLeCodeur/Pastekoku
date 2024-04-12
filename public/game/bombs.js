@@ -1,7 +1,7 @@
 import kaboom from "./node_modules/kaboom/dist/kaboom.mjs";
 
 const k = kaboom({
-  scale: 4,
+  scale: 2,
   font: "monospace",
 });
 
@@ -130,14 +130,10 @@ class Fruit {
 
 
 // DEBUG :
-// const test = new Fruit("test", 1, 0, 0, 3, true, 5, 0);
+// const test = new Fruit("test", 1, 2, 2, 0, true, 5, 0);
 
 // onMousePress(() => {
 //   test.explode([], [], mousePos().x, mousePos().y);
-// });
-
-// onKeyPress(() => {
-//   test.radiusExplode([], [], mousePos().x, mousePos().y);
 // });
 
 let bombs = [];
