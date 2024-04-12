@@ -12,7 +12,7 @@ loadSprite("wood", "./assets/wood.png", {
   sliceX: 2,
 });
 loadSprite("obstacle", "./assets/obstacle.png");
-loadSprite("golem", "golem.png", {
+loadSprite("golem", "./assets/golem.png", {
   sliceX: 10,
   sliceY: 1,
   anims: {
@@ -26,7 +26,6 @@ loadSprite("golem", "golem.png", {
 });
 
 scene("main", (levelIdx) => {
-
   const SPEED = 300;
 
   const levels = [
@@ -73,17 +72,16 @@ scene("main", (levelIdx) => {
         anchor("center"),
         "bricks",
       ],
-      "@": () => [
-        sprite("golem"),
-        area(),
-        body(),
-        anchor("center"),
-        "player",
-      ],
+      "@": () => [sprite("golem"), area(), body(), anchor("center"), "player"],
     },
   });
 
-  const player = level.get("player")[0];
+  // const player = level.get("player")[0];
+  const player = level.spawn(
+    [sprite("golem", { anim: "idle" }), area(), body(), anchor("center"), tile()],
+    1,
+    1
+  );
 
   const dirs = {
     left: LEFT,

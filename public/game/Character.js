@@ -85,9 +85,9 @@ const mapApple = add([
 ]);
 mapApple.play("idle");
 
-player.onCollide("mapApple", (mapApple) => {
-  destroy(mapApple);
-});
+// player.onCollide("mapApple", (mapApple) => {
+//   destroy(mapApple);
+// });
 
 var apple = add([sprite("apple"), pos(player.pos), anchor("center")]);
 apple.play("idle");
