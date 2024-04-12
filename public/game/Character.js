@@ -148,3 +148,12 @@ function movePlayer(direction) {
       break;
   }
 }
+module.exports = {
+  k,
+  SPEED,
+  player,
+  mapApple,
+  apple,
+  movePlayer,
+  stopPlayer,
+};
