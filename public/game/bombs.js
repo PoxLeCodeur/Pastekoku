@@ -18,11 +18,7 @@ loadSprite("boom", "/explosion.png", {
   },
 });
 
-const boom = add([
-	sprite("boom"),
-	pos(-200,-200),
-	anchor("center"),
-])
+const boom = add([sprite("boom"), pos(-200, -200), anchor("center")]);
 
 class Fruit {
   constructor(name, damage, radiusX, radiusY, diagRadius, renew, timer, speed) {
@@ -32,27 +28,71 @@ class Fruit {
     this.damage = damage;
     this.radiusX = radiusX * blocksize;
     this.radiusY = radiusY * blocksize;
-    this.diagRadius = diagRadius;
+    this.diagRadius = diagRadius * blocksize;
     this.renew = renew;
     this.timer = timer;
     this.speed = speed;
   }
 
   explode(obstacles, players, posX, posY) {
+    if (this.diagRadius > 0) {
+      this.radiusExplode(obstacles, players, posX, posY)
+    } else {
+      this.lineExplode(obstacles, players, posX, posY)
+    }
+  }
+
+  radiusExplode(obstacles, players, posX, posY) {
     const blocksize = 20;
-    for (let x = posX - this.radiusX; x <= posX + this.radiusX; x = x + blocksize) {
-      for (let y = posY - this.radiusY; y <= posY + this.radiusY; y = y + blocksize) {
-        if ((x != posX &&
-          y == posY) ||
-        (y != posY &&
-          x == posX)) {
-            const boom = add ([
-              sprite("boom"),
-              pos(x,y),
-              anchor("center")
-            ])
-            boom.play("explode")
+    for (
+      let x = posX - this.diagRadius;
+      x <= posX + this.diagRadius;
+      x = x + blocksize
+    ) {
+      for (
+        let y = posY - this.diagRadius;
+        y <= posY + this.diagRadius;
+        y = y + blocksize
+      ) {
+          const boom = add([sprite("boom"), pos(x, y), anchor("center")]);
+          boom.play("explode");
+        const player = players.find(
+          (player) => player.posX === x && player.posY === y
+        );
+        if (player) {
+          if (player.posX == x && player.posY == y) {
+            player.hp -= this.damage;
           }
+        }
+        const obstacle = obstacles.find(
+          (obstacle) => obstacle.posX === x && obstacle.posY === y
+        );
+        if (obstacle) {
+          if (player.posX == x && player.posY == y) {
+            obstacle.hp -= this.damage;
+          }
+        }
+      }
+    }
+    console.log("radiusExplode done")
+  }
+
+  lineExplode(obstacles, players, posX, posY) {
+    const blocksize = 20;
+    for (
+      let x = posX - this.radiusX;
+      x <= posX + this.radiusX;
+      x = x + blocksize
+    ) {
+      for (
+        let y = posY - this.radiusY;
+        y <= posY + this.radiusY;
+        y = y + blocksize
+      ) {
+        if ((x != posX && y == posY) || (y != posY && x == posX) || (x == posX && y == posY)) {
+          const boom = add([sprite("boom"), pos(x, y), anchor("center")]);
+          boom.play("explode");
+        }
         const player = players.find(
           (player) => player.posX === x && player.posY === y
         );
@@ -65,7 +105,7 @@ class Fruit {
               player.posY > posY + this.radiusY &&
               player.posX == posX)
           ) {
-            player.hp -= 1;
+            player.hp -= this.damage;
           }
         }
         const obstacle = obstacles.find(
@@ -80,20 +120,25 @@ class Fruit {
               obstacle.posY > posY + this.radiusY &&
               obstacle.posX == posX)
           ) {
-            obstacle.hp -= 1;
+            obstacle.hp -= this.damage;
           }
         }
       }
     }
-      boom.play("explode")
   }
 }
 
-const test = new Fruit("test", 1, 3, 3, 0, true, 5, 0);
 
-onMousePress(() => {
-  test.explode([],[], 100 ,100);
-});
+// DEBUG :
+// const test = new Fruit("test", 1, 0, 0, 3, true, 5, 0);
+
+// onMousePress(() => {
+//   test.explode([], [], mousePos().x, mousePos().y);
+// });
+
+// onKeyPress(() => {
+//   test.radiusExplode([], [], mousePos().x, mousePos().y);
+// });
 
 let bombs = [];
 let dbRes = [];
