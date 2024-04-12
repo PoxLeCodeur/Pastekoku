@@ -2,11 +2,11 @@ import kaboom from "./node-modules/kaboom/dist/kaboom.mjs";
 
 const k = kaboom({
   background: [152, 251, 152],
-  scale: 4,
+  scale: 2,
   font: "monospace",
 });
 loadRoot(`assets/`);
-loadSprite("dino", "all_sprites.png", {
+loadSprite("golem", "all_sprites.png", {
   sliceX: 10,
   sliceY: 2,
   anims: {
@@ -17,7 +17,7 @@ loadSprite("dino", "all_sprites.png", {
       loop: true,
     },
     run: {
-      from: 11,
+      from: 10,
       to: 13,
       speed: 8,
       loop: true,
@@ -61,13 +61,13 @@ const SPEED = 300;
 setGravity(0);
 
 const player = add([
-  sprite("dino"),
+  sprite("golem", { anim: "idle" }),
   pos(center()),
   anchor("center"),
   area(),
   body(),
 ]);
-player.play("idle");
+
 const wall = add([
   sprite("wall"),
   pos(center()),
@@ -93,19 +93,42 @@ var apple = add([sprite("apple"), pos(player.pos), anchor("center")]);
 apple.play("idle");
 
 onKeyPress("space", () => {
-  add([sprite("apple"), pos(player.pos), anchor("center")]);
+  const createdApple = add([
+    sprite("apple"),
+    pos(player.pos),
+    anchor("center"),
+  ]);
+  createdApple.play("idle");
   addKaboom(player.pos);
 });
 
-onKeyDown((key) => {
-  movePlayer(key);
-  player.play("run");
+// onKeyDown((key) => {
+//   movePlayer(key);
+//   player.play("run");
+// });
+
+// onKeyRelease((key) => {
+//   if (!isKeyDown("left") && !isKeyDown("right")) {
+//     player.play("idle");
+//   }
+// });
+
+["left", "right", "up", "down"].forEach((key) => {
+  onKeyDown(key, () => {
+    player.play("run");
+    movePlayer(key);
+  });
+  onKeyRelease(key, () => {
+    if (
+      !isKeyDown("left") &&
+      !isKeyDown("right") &&
+      !isKeyDown("up") &&
+      !isKeyDown("down")
+    ) {
+      player.play("idle");
+    }
+  });
 });
-if (!isKeyDown("left") && !isKeyDown("right")) {
-  player.play("idle");
-} else {
-  player.play("run");
-}
 
 function movePlayer(direction) {
   switch (direction) {
@@ -125,16 +148,12 @@ function movePlayer(direction) {
       break;
   }
 }
-
-function stopPlayer() {
-  if (
-    !isKeyDown("left") &&
-    !isKeyDown("right") &&
-    !isKeyDown("up") &&
-    !isKeyDown("down")
-  ) {
-    if (player.isGrounded()) {
-      player.play("idle");
-    }
-  }
-}
+module.exports = {
+  k,
+  SPEED,
+  player,
+  mapApple,
+  apple,
+  movePlayer,
+  stopPlayer,
+};

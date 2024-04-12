@@ -12,9 +12,9 @@ loadSprite("wood", "./assets/wood.png", {
   sliceX: 2,
 });
 loadSprite("obstacle", "./assets/obstacle.png");
-loadSprite("golem", "./assets/golem.png", {
+loadSprite("golem", "./assets/all_sprites.png", {
   sliceX: 10,
-  sliceY: 1,
+  sliceY: 2,
   anims: {
     idle: {
       from: 0,
@@ -24,7 +24,18 @@ loadSprite("golem", "./assets/golem.png", {
     },
   },
 });
-
+loadSprite("apple", "Explosion_Apple.png", {
+  sliceX: 6,
+  sliceY: 1,
+  anims: {
+    idle: {
+      from: 0,
+      to: 5,
+      speed: 4,
+      loop: true,
+    },
+  },
+});
 scene("main", (levelIdx) => {
   const SPEED = 300;
 
