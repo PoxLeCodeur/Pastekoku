@@ -34,7 +34,7 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 - Entrez la commande **git clone https://github.com/PoxLeCodeur/Pastekoku.git**.
 - Vous avez désormais un dossier appelé Pastekoku sur votre PC que vous pouvez ouvrir en allant dans "*Fichier*" puis "*Ouvrir le Dossier*" (vous pouvez voir où le dossier a été installé dans la réponse du terminal après le git clone).
 - Une fois fait, retournez sur le terminal et entrez la commande "**npm i**" pour intaller les bibliothèques Node requises.
-- Tout en restant dans le terminal, faites "**node index.js**" puis **ctrl cliquez** sur **http://localhost:3000**. Une page avec le jeu devrait normalement s'ouvrir sur votre navigateur.
+- Tout en restant dans le terminal, faites "**node index.js**" puis **ctrl cliquez** sur **http://localhost:3000** (Par défaut 3000, différent si vous l'avez changé). Une page avec le jeu devrait normalement s'ouvrir sur votre navigateur.
 - Vous devrez peut-être rajouter un "**/game/**" à la fin de l'url pour avoir accès au jeu.
 - Voili voilou😸.
 
