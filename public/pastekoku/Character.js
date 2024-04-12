@@ -1,4 +1,4 @@
-import kaboom from "./node-modules/kaboom/dist/kaboom.mjs";
+import kaboom from "./node_modules/kaboom/dist/kaboom.mjs";
 
 const k = kaboom({
   background: [152, 251, 152],
