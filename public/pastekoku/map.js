@@ -5,6 +5,8 @@ kaboom({
   scale: 1,
 });
 
+
+
 loadSprite("bricks", "./assets/bricks.png", {
   sliceX: 3,
 });
@@ -22,9 +24,28 @@ loadSprite("golem", "./assets/all_sprites.png", {
       speed: 8,
       loop: true,
     },
+    run: {
+      from: 10,
+      to: 13,
+      speed: 8,
+      loop: true,
+    },
   },
 });
-loadSprite("apple", "Explosion_Apple.png", {
+loadSprite("mapApple", "./assets/Map_Apple.png", {
+  sliceX: 8,
+  sliceY: 1,
+  anims: {
+    idle: {
+      from: 0,
+      to: 7,
+      speed: 4,
+      loop: true,
+    },
+  },
+});
+
+loadSprite("apple", "./assets/Explosion_Apple.png", {
   sliceX: 6,
   sliceY: 1,
   anims: {
@@ -36,13 +57,14 @@ loadSprite("apple", "Explosion_Apple.png", {
     },
   },
 });
+
 scene("main", (levelIdx) => {
   const SPEED = 300;
 
   const levels = [
     [
       "===============",
-      "=  xxx  xx x  =",
+      "=   h   xx x  =",
       "= =x=x=x=x=x= =",
       "= xxoox xoxxx =",
       "=x=x= =x=x=x=x=",
@@ -83,10 +105,22 @@ scene("main", (levelIdx) => {
         anchor("center"),
         "bricks",
       ],
-      "@": () => [sprite("golem"), area(), body(), anchor("center"), "player"],
+      "@": () => [sprite("golem", { anim: "idle" }),
+      pos(center()),
+      anchor("center"),
+      area(),
+      body(),
+    ],
+      "h": () => [
+        sprite("mapApple", {anim: "idle"}),
+        area(),
+        body(),
+        anchor("center"),
+        "mapApple",
+      ],
     },
   });
-
+ 
   // const player = level.get("player")[0];
   const player = level.spawn(
     [sprite("golem", { anim: "idle" }), area(), body(), anchor("center"), tile()],
@@ -94,18 +128,54 @@ scene("main", (levelIdx) => {
     1
   );
 
-  const dirs = {
-    left: LEFT,
-    right: RIGHT,
-    up: UP,
-    down: DOWN,
-  };
+  player.onCollide("mapApple", (mapApple) => {
+    destroy(mapApple);
+   });
 
-  for (const dir in dirs) {
-    onKeyDown(dir, () => {
-      player.move(dirs[dir].scale(SPEED));
-    });
-  }
+  onKeyPress("space", () => {
+    const createdApple = add([
+      sprite("apple"),
+      pos(player.pos.add(50,50)),
+      anchor("center"),
+    ]);
+    createdApple.play("idle");
+    addKaboom(player.pos.add(50,50));
+  });
+  
+["left", "right", "up", "down"].forEach((key) => {
+  onKeyDown(key, () => {
+    player.play("run");
+    movePlayer(key);
+  });
+  onKeyRelease(key, () => {
+    if (
+      !isKeyDown("left") &&
+      !isKeyDown("right") &&
+      !isKeyDown("up") &&
+      !isKeyDown("down")
+    ) {
+      player.play("idle");
+    }
+  });
 });
+
+function movePlayer(direction) {
+  switch (direction) {
+    case "left":
+      player.move(-SPEED, 0);
+      player.flipX = true;
+      break;
+    case "right":
+      player.move(SPEED, 0);
+      player.flipX = false;
+      break;
+    case "up":
+      player.move(0, -SPEED);
+      break;
+    case "down":
+      player.move(0, SPEED);
+      break;
+  }
+}});
 
 go("main", 0);
