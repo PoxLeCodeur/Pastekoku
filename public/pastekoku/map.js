@@ -1,4 +1,4 @@
-import kaboom from "./node_modules/kaboom/dist/kaboom.mjs";
+import kaboom from "kaboom";
 
 const k = kaboom({
   scale: 2,
@@ -139,7 +139,7 @@ class Fruit {
 let bombs = [];
 let dbRes = [];
 
-const url = "http://localhost:8081/bombs";
+const url = "http://localhost:8081/bomb";
 
 fetch(url, {
   method: "get",
