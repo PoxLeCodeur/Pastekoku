@@ -1,8 +1,8 @@
 import kaboom from "./node_modules/kaboom/dist/kaboom.mjs";
 
 kaboom({
-  background: [230, 221, 197],
-  scale: 1,
+  background: [0,0,0],
+  scale: 1.5,
 });
 
 loadSprite("bricks", "./assets/bricks.png", {
@@ -12,7 +12,7 @@ loadSprite("bricks", "./assets/bricks.png", {
 loadSprite("wood", "./assets/wood.png", {
   sliceX: 2,
 });
-
+loadSprite("floor", "./assets/floor.png");
 loadSprite("obstacle", "./assets/obstacle.png");
 
 loadSprite("golem", "./assets/all_sprites.png", {
@@ -252,7 +252,14 @@ scene("main", (levelIdx) => {
       "= =x=o=x=x=x= =",
       "=  x xx xxxx  =",
       "===============",
-    ],
+    ],{
+      tileWidth: 50,
+      tileHeight: 50,
+      tiles: {
+        " ": () => [
+          sprite("floor", { frame: ~~rand(0, 8) }),
+        ],
+    },}
   ];
 
   const level = addLevel(levels[levelIdx], {
@@ -260,6 +267,12 @@ scene("main", (levelIdx) => {
     tileHeight: 50,
     pos: vec2(50, 50),
     tiles: {
+      " ": () => [
+        area(),
+        sprite("floor"),
+        anchor("center"),
+        "floor",
+      ],
       "=": () => [
         sprite("obstacle"),
         area(),
@@ -288,6 +301,7 @@ scene("main", (levelIdx) => {
         anchor("center"),
         "mapApple",
       ],
+      
     },
   });
  
