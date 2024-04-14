@@ -94,7 +94,7 @@ scene("main", (levelIdx) => {
       "= = =x=x=x=x= =",
       "=xxxooxxxxoxxx=",
       "=x=x=x=x=x= =x=",
-      "=xxx oxxxxxh x=",
+      "=xxx oxxxxxh  =",
       "= =x=o=x=x=x= =",
       "=  x xx xxxx  =",
       "===============",
@@ -162,102 +162,100 @@ scene("main", (levelIdx) => {
 
   // Player One put a bomb
   onKeyPress("space", () => {
-    const createdApple = add([
-      sprite("apple"),
-      pos(playerOne.pos.add(50,50)),
-      anchor("center"),
-    ]);
-    createdApple.play("idle");
-    addKaboom(playerOne.pos.add(50,50));
+    createBomb(playerOne);
   });
 
   // Player Two put a bomb
   onKeyPress("e", () => {
+    createBomb(playerTwo);
+  });
+
+  function createBomb(spawningPlayer) {
     const createdApple = add([
       sprite("apple"),
-      pos(playerTwo.pos.add(50,50)),
-      anchor("center"),
+      pos(spawningPlayer.pos.add(50, 50)),
+      anchor("center")
     ]);
     createdApple.play("idle");
-    addKaboom(playerTwo.pos.add(50,50));
-  });
+    addKaboom(spawningPlayer.pos.add(50, 50));
+  }
   
 
-// Input movement of PLayer One
-["left", "right", "up", "down"].forEach((key) => {
-  onKeyDown(key, () => {
-    playerOne.play("run");
-    movePlayerOne(key);
+  // Input movement of PLayer One
+  ["left", "right", "up", "down"].forEach((key) => {
+    onKeyDown(key, () => {
+      playerOne.play("run");
+      movePlayerOne(key);
+    });
+    onKeyRelease(key, () => {
+      if (
+        !isKeyDown("left") &&
+        !isKeyDown("right") &&
+        !isKeyDown("up") &&
+        !isKeyDown("down")
+      ) {
+        playerOne.play("idle");
+      }
+    });
   });
-  onKeyRelease(key, () => {
-    if (
-      !isKeyDown("left") &&
-      !isKeyDown("right") &&
-      !isKeyDown("up") &&
-      !isKeyDown("down")
-    ) {
-      playerOne.play("idle");
+
+  // Input movement of PLayer Two
+  ["q", "d", "z", "s"].forEach((key) => {
+    onKeyDown(key, () => {
+      playerTwo.play("run");
+      movePlayerTwo(key);
+    });
+    onKeyRelease(key, () => {
+      if (
+        !isKeyDown("q") &&
+        !isKeyDown("d") &&
+        !isKeyDown("z") &&
+        !isKeyDown("s")
+      ) {
+        playerTwo.play("idle");
+      }
+    });
+  });
+
+
+  // Movement of player one
+  function movePlayerOne(direction) {
+    switch (direction) {
+      case "left":
+        playerOne.move(-SPEED, 0);
+        playerOne.flipX = true;
+        break;
+      case "right":
+        playerOne.move(SPEED, 0);
+        playerOne.flipX = false;
+        break;
+      case "up":
+        playerOne.move(0, -SPEED);
+        break;
+      case "down":
+        playerOne.move(0, SPEED);
+        break;
     }
-  });
-});
-
-// Input movement of PLayer Two
-["q", "d", "z", "s"].forEach((key) => {
-  onKeyDown(key, () => {
-    playerTwo.play("run");
-    movePlayerTwo(key);
-  });
-  onKeyRelease(key, () => {
-    if (
-      !isKeyDown("q") &&
-      !isKeyDown("d") &&
-      !isKeyDown("z") &&
-      !isKeyDown("s")
-    ) {
-      playerTwo.play("idle");
-    }
-  });
-});
-
-
-// Movement of player one
-function movePlayerOne(direction) {
-  switch (direction) {
-    case "left":
-      playerOne.move(-SPEED, 0);
-      playerOne.flipX = true;
-      break;
-    case "right":
-      playerOne.move(SPEED, 0);
-      playerOne.flipX = false;
-      break;
-    case "up":
-      playerOne.move(0, -SPEED);
-      break;
-    case "down":
-      playerOne.move(0, SPEED);
-      break;
-  }
-
-// Movement of player two
-function movePlayerTwo(direction) {
-  switch (direction) {
-    case "q":
-      playerTwo.move(-SPEED, 0);
-      playerTwo.flipX = true;
-      break;
-    case "d":
-      playerTwo.move(SPEED, 0);
-      playerTwo.flipX = false;
-      break;
-    case "z":
-      playerTwo.move(0, -SPEED);
-      break;
-    case "s":
-      playerTwo.move(0, SPEED);
-      break;
   };
-
-}}});
+  // Movement of player two
+  function movePlayerTwo(direction) {
+    switch (direction) {
+      case "q":
+        playerTwo.move(-SPEED, 0);
+        playerTwo.flipX = true;
+        break;
+      case "d":
+        playerTwo.move(SPEED, 0);
+        playerTwo.flipX = false;
+        break;
+      case "z":
+        playerTwo.move(0, -SPEED);
+        break;
+      case "s":
+        playerTwo.move(0, SPEED);
+        break;
+    };
+  };  
+});
 
 go("main", 0);
