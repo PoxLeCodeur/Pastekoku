@@ -8,13 +8,13 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 
 - Une map avec des murs destructibles, et des murs indestructibles.☑️
 
-- Des bombes avec un rayon d’explosion qui peut tuer les joueurs (et une pastèque)
+- Des bombes avec un rayon d’explosion qui peut tuer les joueurs (et une pastèque).❎
 
 - Des bots qui se déplacent et cherchent à se tuer entre eux en posant des bombes.❎
 
-- Différents objets qui permettent d’améliorer notre personnage ou nos bombes.☑️
+- Différents objets qui permettent d’améliorer notre personnage ou nos bombes.❎
 
-- La possibilité de jouer en multijoueur local.❎
+- La possibilité de jouer en multijoueur local.☑️
 
 **Features additionnelles :**
 
