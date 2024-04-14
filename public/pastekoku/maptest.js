@@ -220,16 +220,34 @@ fetch(url, {
       bombs.push(
         new Fruit(dbRes[currentBomb].name, 1, 3, 3, 0, true, 10000, 0)
       );
-    }
+    };
   });
 
 scene("main", (levelIdx) => {
   const SPEED = 300;
 
+  const base = [
+    [
+      "===============",
+      "=             =",
+      "= = = = = = = =",
+      "=             =",
+      "= = = = = = = =",
+      "=             =",
+      "= = = = = = = =",
+      "=             =",
+      "= = = = = = = =",
+      "=             =",
+      "= = = = = = = =",
+      "=             =",
+      "===============",
+    ],
+  ];
+
   const levels = [
     [
       "===============",
-      "=   h   xx x  =",
+      "=       xx x  =",
       "= =x=x=x=x=x= =",
       "= xxoox xoxxx =",
       "=x=x= =x=x=x=x=",
@@ -237,62 +255,128 @@ scene("main", (levelIdx) => {
       "= = =x=x=x=x= =",
       "=xxxooxxxxoxxx=",
       "=x=x=x=x=x= =x=",
-      "=xxx oxxxxxh  =",
+      "=xxx oxxxxx   =",
       "= =x=o=x=x=x= =",
       "=  x xx xxxx  =",
       "===============",
-    ],{
+    ],
+  ];
+  const level = addLevel(base[levelIdx], {
       tileWidth: 50,
       tileHeight: 50,
+      pos: vec2(50, 50),
       tiles: {
         " ": () => [
-          sprite("floor", { frame: ~~rand(0, 8) }),
+          area(),
+          sprite("floor"),
+          anchor("center"),
+          "floor",
         ],
-    },}
-  ];
+        "=": () => [
+          sprite("obstacle"),
+          area(),
+          body({ isStatic: true }),
+          anchor("center"),
+          "obstacle",
+        ],
+      }});
 
-  const level = addLevel(levels[levelIdx], {
-    tileWidth: 50,
-    tileHeight: 50,
-    pos: vec2(50, 50),
-    tiles: {
-      " ": () => [
-        area(),
-        sprite("floor"),
-        anchor("center"),
-        "floor",
-      ],
-      "=": () => [
-        sprite("obstacle"),
-        area(),
-        body({ isStatic: true }),
-        anchor("center"),
-        "obstacle",
-      ],
-      "x": () => [
-        sprite("wood"),
-        area(),
-        body({ isStatic: true }),
-        anchor("center"),
-        "wood",
-      ],
-      "o": () => [
-        sprite("bricks"),
-        area(),
-        body({ isStatic: true }),
-        anchor("center"),
-        "bricks",
-      ],
-      "h": () => [
-        sprite("mapApple", {anim: "idle"}),
-        area(),
-        body(),
-        anchor("center"),
-        "mapApple",
-      ],
+  function createMap(level) {
+    const matrix = [];
+
+    for (let y = 0; y < level.length; y++) {
+        for (let x = 0; x < level[y].length; x++) {
+            const char = level[y][x];
+            if (char !== '=') {
+                matrix.push([char, x, y]);
+            }
+        }
+    }
+
+    return matrix;
+  }
+
+  map = createMap(levels)
+
+  function generateMap(map) {
+    let spawnCode = '';
+    let cpt = 0;
+    for (const [char, x, y] of map) {
+
+        let tileType;
+
+        switch (char) {
+            case '':
+                tileType = "floor";
+                break;
+            case 'x':
+                tileType = "wood";
+                break;
+            case 'o':
+                tileType = "bricks";
+                break;
+            default:
+                tileType = "floor";
+                break;
+        };
+        cpt += 1;
+
+        let spawnCode = new Function('level', 'sprite', 'area', 'anchor', 'tile', `let ${tileType}${cpt} = level.spawn([sprite("${tileType}"), area(), anchor("center"), tile()], ${x}, ${y});`);
+        spawnCode(level, sprite, area, anchor, tile)
+
+    }
+
+    return spawnCode;
+}
+
+
+generateMap(map)
+
+
+
+
+  // const level = addLevel(levels[levelIdx], {
+  //   tileWidth: 50,
+  //   tileHeight: 50,
+  //   pos: vec2(50, 50),
+  //   tiles: {
+  //     " ": () => [
+  //       area(),
+  //       sprite("floor"),
+  //       anchor("center"),
+  //       "floor",
+  //     ],
+  //     "=": () => [
+  //       sprite("obstacle"),
+  //       area(),
+  //       body({ isStatic: true }),
+  //       anchor("center"),
+  //       "obstacle",
+  //     ],
+  //     "x": () => [
+  //       sprite("wood"),
+  //       area(),
+  //       body({ isStatic: true }),
+  //       anchor("center"),
+  //       "wood",
+  //     ],
+  //     "o": () => [
+  //       sprite("bricks"),
+  //       area(),
+  //       body({ isStatic: true }),
+  //       anchor("center"),
+  //       "bricks",
+  //     ],
+  //     "h": () => [
+  //       sprite("mapApple", {anim: "idle"}),
+  //       area(),
+  //       body(),
+  //       anchor("center"),
+  //       "mapApple",
+  //     ],
       
-    },
-  });
+  //   },
+  // });
  
   // create Player One
   const playerOne = level.spawn(
@@ -337,9 +421,10 @@ scene("main", (levelIdx) => {
     ]);
     createdApple.play("idle");
     createdApple.wait(2, () => {
-      bombs[0].explode([], [], createdApple.pos.x, createdApple.pos.y);
-      destroy(createdApple);
-    })
+      bombs[0].explode([], [], createdApple.pos.x, createdApple.pos.y)
+      destroy(createdApple)
+    });
+
   }
   
 
