@@ -13,7 +13,7 @@ connect.connect(function (err) {
   if (err) throw err;
   console.log("Successfully connect to the database");
   const sql_bomb =
-    "INSERT INTO bomb (name, radiusX, radiusY, diagRadius, renew, domage, speed, timer ,imageLink) VALUES ? ";
+    "INSERT INTO bomb (name, radiusX, radiusY, diagRadius, renew, damage, speed, timer ,imageLink) VALUES ? ";
   const values_bomb = [
     ["pomme", 1, 1, 0, true, 1, 0, 3000, "url2"],
     ["grenade", 0, 0, 2, false, 1, 0, 3000, "url"],
