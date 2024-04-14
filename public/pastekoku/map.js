@@ -1,4 +1,83 @@
-import kaboom from "kaboom";
+import kaboom from "./node_modules/kaboom/dist/kaboom.mjs";
+
+kaboom({
+  background: [230, 221, 197],
+  scale: 1,
+});
+
+loadSprite("bricks", "./assets/bricks.png", {
+  sliceX: 3,
+});
+
+loadSprite("wood", "./assets/wood.png", {
+  sliceX: 2,
+});
+
+loadSprite("obstacle", "./assets/obstacle.png");
+
+loadSprite("golem", "./assets/all_sprites.png", {
+  sliceX: 10,
+  sliceY: 2,
+  anims: {
+    idle: {
+      from: 0,
+      to: 9,
+      speed: 8,
+      loop: true,
+    },
+    run: {
+      from: 10,
+      to: 13,
+      speed: 8,
+      loop: true,
+    },
+  },
+});
+
+loadSprite("enemy", "./assets/enemy.png", {
+  sliceX: 10,
+  sliceY: 2,
+  anims: {
+    idle: {
+      from: 0,
+      to: 9,
+      speed: 8,
+      loop: true,
+    },
+    run: {
+      from: 10,
+      to: 13,
+      speed: 8,
+      loop: true,
+    },
+  },
+});
+
+loadSprite("mapApple", "./assets/Map_Apple.png", {
+  sliceX: 8,
+  sliceY: 1,
+  anims: {
+    idle: {
+      from: 0,
+      to: 7,
+      speed: 4,
+      loop: true,
+    },
+  },
+});
+
+loadSprite("apple", "./assets/Explosion_Apple.png", {
+  sliceX: 6,
+  sliceY: 1,
+  anims: {
+    idle: {
+      from: 0,
+      to: 5,
+      speed: 4,
+      loop: true,
+    },
+  },
+});
 
 loadSprite("boom", "./assets/explosion.png", {
   sliceX: 7,
@@ -154,88 +233,6 @@ fetch(url, {
     }
     console.log(bombs);
   });
-=======
-import kaboom from "./node_modules/kaboom/dist/kaboom.mjs";
-
-kaboom({
-  background: [230, 221, 197],
-  scale: 1,
-});
-
-loadSprite("bricks", "./assets/bricks.png", {
-  sliceX: 3,
-});
-
-loadSprite("wood", "./assets/wood.png", {
-  sliceX: 2,
-});
-
-loadSprite("obstacle", "./assets/obstacle.png");
-
-loadSprite("golem", "./assets/all_sprites.png", {
-  sliceX: 10,
-  sliceY: 2,
-  anims: {
-    idle: {
-      from: 0,
-      to: 9,
-      speed: 8,
-      loop: true,
-    },
-    run: {
-      from: 10,
-      to: 13,
-      speed: 8,
-      loop: true,
-    },
-  },
-});
-
-loadSprite("enemy", "./assets/enemy.png", {
-  sliceX: 10,
-  sliceY: 2,
-  anims: {
-    idle: {
-      from: 0,
-      to: 9,
-      speed: 8,
-      loop: true,
-    },
-    run: {
-      from: 10,
-      to: 13,
-      speed: 8,
-      loop: true,
-    },
-  },
-});
-
-loadSprite("mapApple", "./assets/Map_Apple.png", {
-  sliceX: 8,
-  sliceY: 1,
-  anims: {
-    idle: {
-      from: 0,
-      to: 7,
-      speed: 4,
-      loop: true,
-    },
-  },
-});
-
-loadSprite("apple", "./assets/Explosion_Apple.png", {
-  sliceX: 6,
-  sliceY: 1,
-  anims: {
-    idle: {
-      from: 0,
-      to: 5,
-      speed: 4,
-      loop: true,
-    },
-  },
-});
-
 
 scene("main", (levelIdx) => {
   const SPEED = 300;
