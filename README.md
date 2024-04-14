@@ -68,3 +68,7 @@ L'idée de Pastekoku est de faire un jeu Bomberman avec différents types de fru
 - Deux petits golems qui posent des fruits(lesquels explosent mais ne font aucun dégat pour le moment).
 - Une pomme ramassable qui à l'avenir donnera un bonus.
 - Une map mais dont les murs ne sont pas encore destructibles.
+
+**Note de la rédaction**
+Il existe un fichier map1.js qui détient les différentes tentatives d'amélioration qui n'ont finalement pas abouties, nous avons décidé de le laisser pour que vous puissiez voir nos raisonnements si cela vous intéresse.
+Cordialement, Toto de la rédaction Pastekoku.
