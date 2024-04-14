@@ -151,7 +151,7 @@ class Fruit {
   }
 
   lineExplode(obstacles, players, posX, posY) {
-    const blocksize = 20;
+    const blocksize = 30;
     for (
       let x = posX - this.radiusX;
       x <= posX + this.radiusX;
@@ -317,6 +317,7 @@ scene("main", (levelIdx) => {
   // Player One put a bomb
   onKeyPress("space", () => {
     createBomb(playerOne);
+
   });
 
   // Player Two put a bomb
@@ -326,12 +327,15 @@ scene("main", (levelIdx) => {
 
   function createBomb(spawningPlayer) {
     const createdApple = add([
+      timer(),
       sprite("apple"),
       pos(spawningPlayer.pos.add(50, 50)),
       anchor("center")
     ]);
     createdApple.play("idle");
-    addKaboom(spawningPlayer.pos.add(50, 50));
+    createdApple.wait(2, () => {
+      bombs[0].explode([], [], createdApple.pos.x, createdApple.pos.y)
+    })
   }
   
 
